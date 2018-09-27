@@ -36,8 +36,7 @@ public class Mapper {
             account.setCode(mapFrom.getCode());
             account.setDescription(mapFrom.getDescription());
             account.setBookmarks(mapFrom.getBookmarks());
-            mapFrom.setAccountType(accountType);
-            account.setAccountType(mapFrom.getAccountType());
+            account.setAccountType(accountType);
             return account ;
         }
         return null ;

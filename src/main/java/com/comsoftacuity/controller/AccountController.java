@@ -38,9 +38,9 @@ public class AccountController {
 	private ReportManagerService reportManagerService;
 
 	/* Create Operation */
-	@RequestMapping(method = RequestMethod.POST, value = "/accounts/{type}/create")
-	public String createAccount(@RequestBody Accountdto accountdto, @PathVariable String type) {
-		AccountType accountType = reportManagerService.getAccountTypeRepository().findByDescriptionIgnoreCase(type);
+	@RequestMapping(method = RequestMethod.POST, value = "/accounts/{description}/create")
+	public String createAccount(@RequestBody Accountdto accountdto, @PathVariable String description) {
+		AccountType accountType = reportManagerService.getAccountTypeRepository().findByDescription(description);
 		if (accountType != null) {
 			reportManagerService.getAccountRepository().save(Mapper.mapToAccount(accountdto, accountType));
 			return "Account creation success";
@@ -69,6 +69,12 @@ public class AccountController {
 		reportManagerService.getAccountTypeRepository().findAll().forEach(accountType::add);
 		return Mapper.mapToAccountTypedtoList(accountType);
 	}
+	
+	@RequestMapping("/accounts/account-types/{description}")
+	public AccountType getAccountTypeByDescription(@PathVariable String description) {
+		return reportManagerService.getAccountTypeRepository().findByDescription(description);
+	}
+	
 	@RequestMapping("/accounts")
 	public List<Accountdto> getAllAccounts() {
 		List<Account> accounts = new ArrayList<>();

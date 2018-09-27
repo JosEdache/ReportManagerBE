@@ -11,8 +11,8 @@ import com.comsoftacuity.entity.AccountType;
 @Repository
 public interface AccountTypeRepository extends CrudRepository<AccountType, Integer> , JpaSpecificationExecutor<AccountType>{
     public AccountType findByDescriptionIgnoreCase(String description) ;
+    public AccountType findByDescription(String description) ;
     public List<AccountType> findByDescriptionContainsIgnoreCase(String description) ;
     //List<AccountType> findByIdContainsOrCodeContainsOrDescriptionContainsAllIgnoreCase(Integer idPart , Integer codePart , String descriptionPart) ;
     List<AccountType> findByIdContainsOrCodeContainsAllIgnoreCase(Integer idPart , Integer codePart) ;
-
 }

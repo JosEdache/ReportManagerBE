@@ -1,22 +1,38 @@
 package com.comsoftacuity;
 
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 public class DataBaseConfig {
+	
+	@Value("${spring.datasource.url}")
+	  private String dbUrl;
 
-	@Bean
+	/*@Bean
     @Primary
     @Profile("production")
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
-    }
+    }*/
+	
+	@Bean
+	  public DataSource dataSource() throws SQLException {
+	    if (dbUrl == null || dbUrl.isEmpty()) {
+	      return new HikariDataSource();
+	    } else {
+	      HikariConfig config = new HikariConfig();
+	      config.setJdbcUrl(dbUrl);
+	      return new HikariDataSource(config);
+	    }
+	  }
 }

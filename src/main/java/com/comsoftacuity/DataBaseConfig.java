@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-@Configuration
+//@Configuration
 public class DataBaseConfig {
 	
 	@Value("${spring.datasource.url}")
@@ -25,7 +25,7 @@ public class DataBaseConfig {
         return DataSourceBuilder.create().build();
     }*/
 	
-	@Bean
+	/*@Bean
 	  public DataSource dataSource() throws SQLException {
 	    if (dbUrl == null || dbUrl.isEmpty()) {
 	      return new HikariDataSource();
@@ -34,5 +34,5 @@ public class DataBaseConfig {
 	      config.setJdbcUrl(dbUrl);
 	      return new HikariDataSource(config);
 	    }
-	  }
+	  }*/
 }
